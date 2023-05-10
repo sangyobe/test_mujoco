@@ -98,7 +98,7 @@ int main(int argc, char **argv)
     std::cout << "Hello!" << std::endl;
 
     // load a model
-    m = mj_loadXML("models/humanoid/humanoid.xml", NULL, err, 1000);
+    m = mj_loadXML("model/humanoid/humanoid.xml", NULL, err, 1000);
     if (!m)
     {
         std::cout << err << std::endl;
