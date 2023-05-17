@@ -1,0 +1,152 @@
+<mujoco model="QuadIP">
+  <compiler angle="radian" meshdir="meshes/" autolimits="true"/>
+  <option timestep="0.001" tolerance="1e-06" cone="elliptic" jacobian="sparse" solver="CG" iterations="30"/>
+  <default/>
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1=".3 .5 .7" rgb2="0 0 0" width="512" height="512"/>
+    <texture name="grid" type="2d" builtin="checker" width="512" height="512" rgb1=".1 .2 .3" rgb2=".2 .3 .4"/>
+    <material name="grid" texture="grid" texrepeat="1 1" texuniform="true" reflectance=".2"/>
+  </asset>
+  <asset>
+    <mesh name="Base" file="Base.STL"/>
+    <mesh name="FL_HP" file="FL_HP.STL"/>
+    <mesh name="FL_Thigh" file="FL_Thigh.STL"/>
+    <mesh name="FL_Calf" file="FL_Calf.STL"/>
+    <mesh name="BL_HP" file="BL_HP.STL"/>
+    <mesh name="BL_Thigh" file="BL_Thigh.STL"/>
+    <mesh name="BL_Calf" file="BL_Calf.STL"/>
+    <mesh name="FR_HP" file="FR_HP.STL"/>
+    <mesh name="FR_Thigh" file="FR_Thigh.STL"/>
+    <mesh name="FR_Calf" file="FR_Calf.STL"/>
+    <mesh name="BR_HP" file="BR_HP.STL"/>
+    <mesh name="BR_Thigh" file="BR_Thigh.STL"/>
+    <mesh name="BR_Calf" file="BR_Calf.STL"/>
+  </asset>
+
+ <visual>
+    <map force="0.1" zfar="30"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global offwidth="2560" offheight="1440" elevation="-20" azimuth="120"/>
+  </visual>
+
+  <worldbody>
+    <geom name="ground" size="10 10 .05" type="plane" material="grid" condim="3"/>
+    <light dir=".2 1 -.4" diffuse=".8 .8 .8" specular="0.3 0.3 0.3" pos="-2 -10 4" cutoff="35"/>
+    <light dir="-.2 1 -.4" diffuse=".8 .8 .8" specular="0.3 0.3 0.3" pos="2 -10 4" cutoff="35"/>
+
+    <body name="Base" pos="0 0 0.642" gravcomp="0">
+      <freejoint name="Base"/>
+      <inertial pos="0.00407 -0.00053 -0.00159" quat="0 0.707107 0 0.707107" mass="8.29295" diaginertia="0.20885 0.1908 0.02567"/>
+      <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="Base"/>
+      <body name="FL_HP" pos="0.27 0.055 0" gravcomp="0">
+        <inertial pos="-0.00958 0.00664 0.00176" quat="0 0.707107 0 0.707107" mass="1.2615" diaginertia="0.00176 0.00166 0.00108"/>
+        <joint name="1_FL_Roll" pos="0 0 0" axis="1 0 0" range="-1 1"/>
+        <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="FL_HP"/>
+        <body name="FL_Thigh" pos="0 0.1142 0" gravcomp="0">
+          <inertial pos="-0.0055 -0.02031 -0.03239" mass="2.3269" diaginertia="0.02004 0.01871 0.00366"/>
+          <joint name="1_FL_Pitch" pos="0 0 0" axis="0 1 0" range="-3.14 3.14"/>
+          <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="FL_Thigh"/>
+          <body name="FL_Calf" pos="0 0 -0.28" gravcomp="0">
+            <inertial pos="0.01134 6e-05 -0.15434" quat="0.707107 0 0 0.707107" mass="0.56128" diaginertia="0.02632 0.0262 0.0002"/>
+            <joint name="1_FL_Knee" pos="0 0 0" axis="0 1 0" range="-3.14 -0.17"/>
+            <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="FL_Calf"/>
+          </body>
+        </body>
+      </body>
+      <body name="BL_HP" pos="-0.27 0.055 0" gravcomp="0">
+        <inertial pos="0.0096 0.0066 0.00016" quat="0 0.707107 0 0.707107" mass="1.259" diaginertia="0.00176 0.00165 0.00108"/>
+        <joint name="2_BL_Roll" pos="0 0 0" axis="1 0 0" range="-1 1"/>
+        <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="BL_HP"/>
+        <body name="BL_Thigh" pos="0 0.1142 0" gravcomp="0">
+          <inertial pos="-0.0055 -0.02031 -0.03239" mass="2.3269" diaginertia="0.02004 0.01871 0.00366"/>
+          <joint name="2_BL_Pitch" pos="0 0 0" axis="0 1 0" range="-3.14 3.14"/>
+          <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="BL_Thigh"/>
+          <body name="BL_Calf" pos="0 0 -0.28" gravcomp="0">
+            <inertial pos="0.01134 6e-05 -0.15434" quat="0.707107 0 0 0.707107" mass="0.56128" diaginertia="0.02632 0.0262 0.0002"/>
+            <joint name="2_BL_Knee" pos="0 0 0" axis="0 1 0" range="-3.14 -0.17"/>
+            <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="BL_Calf"/>
+          </body>
+        </body>
+      </body>
+      <body name="FR_HP" pos="0.27 -0.055 0" gravcomp="0">
+        <inertial pos="-0.0096 -0.0066 0.00016" quat="0 0.707107 0 0.707107" mass="1.259" diaginertia="0.00176 0.00165 0.00108"/>
+        <joint name="3_FR_Roll" pos="0 0 0" axis="1 0 0" range="-1 1"/>
+        <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="FR_HP"/>
+        <body name="FR_Thigh" pos="0 -0.1142 0" gravcomp="0">
+          <inertial pos="-0.0055 0.02031 -0.03246" mass="2.32853" diaginertia="0.02004 0.01872 0.00366"/>
+          <joint name="3_FR_Pitch" pos="0 0 0" axis="0 1 0" range="-3.14 3.14"/>
+          <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="FR_Thigh"/>
+          <body name="FR_Calf" pos="0 0 -0.28" gravcomp="0">
+            <inertial pos="0.01134 6e-05 -0.15434" quat="0.707107 0 0 0.707107" mass="0.56128" diaginertia="0.02632 0.0262 0.0002"/>
+            <joint name="3_FR_Knee" pos="0 0 0" axis="0 1 0" range="-3.14 -0.17"/>
+            <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="FR_Calf"/>
+          </body>
+        </body>
+      </body>
+      <body name="BR_HP" pos="-0.27 -0.055 0" gravcomp="0">
+        <inertial pos="0.00958 -0.00664 -5e-05" quat="0 0.707107 0 0.707107" mass="1.2615" diaginertia="0.00176 0.00166 0.00108"/>
+        <joint name="4_BR_Roll" pos="0 0 0" axis="1 0 0" range="-1 1"/>
+        <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="BR_HP"/>
+        <body name="BR_Thigh" pos="0 -0.1142 0" gravcomp="0">
+          <inertial pos="-0.0055 0.02031 -0.03246" mass="2.32853" diaginertia="0.02004 0.01872 0.00366"/>
+          <joint name="4_BR_Pitch" pos="0 0 0" axis="0 1 0" range="-3.14 3.14"/>
+          <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="BR_Thigh"/>
+          <body name="BR_Calf" pos="0 0 -0.28" gravcomp="0">
+            <inertial pos="0.01134 6e-05 -0.15434" quat="0.707107 0 0 0.707107" mass="0.56128" diaginertia="0.02632 0.0262 0.0002"/>
+            <joint name="4_BR_Knee" pos="0 0 0" axis="0 1 0" range="-3.14 -0.17"/>
+            <geom type="mesh" rgba="0.75294 0.75294 0.75294 1" mesh="BR_Calf"/>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+<!--  <contact>
+    <pair name="FL" geom1="ground" geom2="FL_Leg"/>
+    <pair name="BL" geom1="ground" geom2="BL_Leg"/>
+    <pair name="FR" geom1="ground" geom2="FR_Leg"/>
+    <pair name="BR" geom1="ground" geom2="BR_Leg"/>
+    <pair name="Body" geom1="ground" geom2="Body"/>
+  </contact> -->
+
+  <contact>
+    <exclude name="FL_1" body1="Base" body2="FL_HP"/>
+    <exclude name="FL_2" body1="Base" body2="FL_Thigh"/>
+    <exclude name="FL_3" body1="Base" body2="FL_Calf"/>
+    <exclude name="FL_4" body1="FL_Thigh" body2="FL_Calf"/>
+    
+    <exclude name="BL_1" body1="Base" body2="BL_HP"/>
+    <exclude name="BL_2" body1="Base" body2="BL_Thigh"/>
+    <exclude name="BL_3" body1="Base" body2="BL_Calf"/>
+    <exclude name="BL_4" body1="BL_Thigh" body2="BL_Calf"/>
+
+    <exclude name="FR_1" body1="Base" body2="FR_HP"/>
+    <exclude name="FR_2" body1="Base" body2="FR_Thigh"/>
+    <exclude name="FR_3" body1="Base" body2="FL_Calf"/>
+    <exclude name="FR_4" body1="FR_Thigh" body2="FR_Calf"/>
+
+    <exclude name="BR_1" body1="Base" body2="BR_HP"/>
+    <exclude name="BR_2" body1="Base" body2="BR_Thigh"/>
+    <exclude name="BR_3" body1="Base" body2="FL_Calf"/>
+    <exclude name="BR_4" body1="BR_Thigh" body2="BR_Calf"/>
+  </contact>
+
+  <actuator>
+    <motor name="FL_Roll" gear="50" joint="1_FL_Roll" forcerange="-1.0 1.0"/>
+    <motor name="FL_Pitch" gear="50" joint="1_FL_Pitch" forcerange="-1.0 1.0"/>
+    <motor name="FL_Knee" gear="50" joint="1_FL_Knee" forcerange="-1.0 1.0"/>
+
+    <motor name="BL_Roll" gear="50" joint="2_BL_Roll" forcerange="-1.0 1.0"/>
+    <motor name="BL_Pitch" gear="50" joint="2_BL_Pitch" forcerange="-1.0 1.0"/>
+    <motor name="BL_Knee" gear="50" joint="2_BL_Knee" forcerange="-1.0 1.0"/>
+
+    <motor name="FR_Roll" gear="50" joint="3_FR_Roll" forcerange="-1.0 1.0"/>
+    <motor name="FR_Pitch" gear="50" joint="3_FR_Pitch" forcerange="-1.0 1.0"/>
+    <motor name="FR_Knee" gear="50" joint="3_FR_Knee" forcerange="-1.0 1.0"/>
+
+    <motor name="BR_Roll" gear="50" joint="4_BR_Roll" forcerange="-1.0 1.0"/>
+    <motor name="BR_Pitch" gear="50" joint="4_BR_Pitch" forcerange="-1.0 1.0"/>
+    <motor name="BR_Knee" gear="50" joint="4_BR_Knee" forcerange="-1.0 1.0"/>
+  </actuator>
+
+</mujoco>

@@ -2,6 +2,7 @@
 #include <app.h>
 #include <GLFW/glfw3.h>
 #include "mujoco/mujoco.h"
+#include <dtMath/dtMath.h>
 
 // mouse interaction
 char err[1000];
@@ -95,10 +96,9 @@ void scroll(GLFWwindow *window, double xoffset, double yoffset)
 int main(int argc, char **argv)
 {
 
-    std::cout << "Hello!" << std::endl;
-
     // load a model
-    m = mj_loadXML("model/humanoid/humanoid.xml", NULL, err, 1000);
+    // m = mj_loadXML("model/humanoid/humanoid.xml", NULL, err, 1000);
+    m = mj_loadXML("model/quadip/QuadIP.xml", NULL, err, 1000);
     if (!m)
     {
         std::cout << err << std::endl;
