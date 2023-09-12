@@ -1,5 +1,4 @@
 #include <iostream>
-#include <app.h>
 #include <GLFW/glfw3.h>
 #include "mujoco/mujoco.h"
 #include <dtMath/dtMath.h>
@@ -138,6 +137,8 @@ int main(int argc, char **argv)
         while (d->time - simstart < 1.0 / 60.0)
         {
             std::cout << d->time << std::endl;
+            double tau[12] = {0.0, -0.1, 0.0, 0.0, -0.1, 0.0, 0.0, -0.1, 0.0, 0.0, -0.1, 0.0};
+            std::copy(&tau[0], &tau[0] + 12, d->ctrl);
             mj_step(m, d);
         }
 
